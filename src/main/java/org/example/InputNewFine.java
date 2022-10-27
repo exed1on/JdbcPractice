@@ -2,9 +2,10 @@ package org.example;
 
 import java.util.Scanner;
 
-public class InputNewFine extends InputType{
+public class InputNewFine implements Input{
     private String inputedFine;
-    private void setString()
+    @Override
+    public void setString()
     {
         String temp;
         InputType it=new InputType();
@@ -36,7 +37,7 @@ public class InputNewFine extends InputType{
 
     }
 
-    @Override
+@Override
     public String getString() {
         setString();
         return inputedFine;

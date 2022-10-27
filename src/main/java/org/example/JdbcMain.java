@@ -63,7 +63,7 @@ public class JdbcMain {
                       || stringToLowerCase(rs.getString(3)).equals(stringToLowerCase(search))) {
                   counterFines++;
                   sumFines += stringFineToDouble(rs.getString(6));
-                  System.out.printf("%s(ID %s) has fine on %s(VIN %s) %s%n",
+                  System.out.printf("%s(ID %s) has fine on %s(VIN %s): %s%n",
                           rs.getString(3),
                           rs.getString(2),
                           rs.getString(4),

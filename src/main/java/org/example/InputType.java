@@ -2,9 +2,10 @@ package org.example;
 
 import java.util.Scanner;
 
-public class InputType {
+public class InputType implements Input{
     private String inputType;
-    private void setString() {
+    @Override
+    public void setString() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Type s to see your fines or type e to add new fine to database");
         inputType = sc.nextLine();
@@ -15,6 +16,7 @@ public class InputType {
         setString();
         }
     }
+    @Override
     public String getString()
     {
         setString();
