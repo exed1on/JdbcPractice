@@ -19,7 +19,7 @@ public class JdbcMain {
     public static Double stringFineToDouble(String st)
     {
        return Double.valueOf(st
-                .substring(1,st.indexOf(","))+"."+st.substring(st.indexOf(",")+1,st.length()));
+                .substring(1,st.indexOf(","))+"."+st.substring(st.indexOf(",")+1));
     }
 
     public static void main(String[] args) {
@@ -41,14 +41,14 @@ public class JdbcMain {
           rset.moveToInsertRow();
           rset.updateInt(1,a+1);
           rset.updateString(2,newFine.substring(0,newFine.indexOf(",")));
-          newFine=newFine.substring(newFine.indexOf(",")+1,newFine.length());
+          newFine=newFine.substring(newFine.indexOf(",")+1);
           rset.updateString(3,newFine.substring(0,newFine.indexOf(",")));
-          newFine=newFine.substring(newFine.indexOf(",")+1,newFine.length());
+          newFine=newFine.substring(newFine.indexOf(",")+1);
           rset.updateString(4,newFine.substring(0,newFine.indexOf(",")));
-          newFine=newFine.substring(newFine.indexOf(",")+1,newFine.length());
+          newFine=newFine.substring(newFine.indexOf(",")+1);
           rset.updateString(5,newFine.substring(0,newFine.indexOf(",")));
-          newFine=newFine.substring(newFine.indexOf(",")+1,newFine.length());
-          rset.updateString(6,newFine.substring(0,newFine.length()));
+          newFine=newFine.substring(newFine.indexOf(",")+1);
+          rset.updateString(6,newFine);
           rset.insertRow();
           rset.moveToCurrentRow();
       }
@@ -57,7 +57,6 @@ public class JdbcMain {
           String search = inPers.getString();
           int counterFines = 0;
           double sumFines = 0;
-          String temp = "";
           while (rs.next()) {
               if (stringToLowerCase(rs.getString(2)).equals(stringToLowerCase(search))
                       || stringToLowerCase(rs.getString(3)).equals(stringToLowerCase(search))) {
