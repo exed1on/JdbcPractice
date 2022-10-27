@@ -32,21 +32,25 @@ public class JdbcMain {
       {
           InputNewFine inf=new InputNewFine();
           String newFine=inf.getString();
-          String sql = "INSERT INTO car_fines VALUES (?, ?, ?, ?, ?)";
-          PreparedStatement pstmt = connection.prepareStatement(sql);
-//          rs.moveToInsertRow();
-          pstmt.setString(1,newFine.substring(0,newFine.indexOf(",")));
+          ResultSet rset = statement.executeQuery("select * from car_fines");
+          int a=0;
+          while(rset.next())
+          {
+              a++;
+          }
+          rset.moveToInsertRow();
+          rset.updateInt(1,a+1);
+          rset.updateString(2,newFine.substring(0,newFine.indexOf(",")));
           newFine=newFine.substring(newFine.indexOf(",")+1,newFine.length());
-          pstmt.setString(2,newFine.substring(0,newFine.indexOf(",")));
+          rset.updateString(3,newFine.substring(0,newFine.indexOf(",")));
           newFine=newFine.substring(newFine.indexOf(",")+1,newFine.length());
-          pstmt.setString(3,newFine.substring(0,newFine.indexOf(",")));
+          rset.updateString(4,newFine.substring(0,newFine.indexOf(",")));
           newFine=newFine.substring(newFine.indexOf(",")+1,newFine.length());
-          pstmt.setString(4,newFine.substring(0,newFine.indexOf(",")));
+          rset.updateString(5,newFine.substring(0,newFine.indexOf(",")));
           newFine=newFine.substring(newFine.indexOf(",")+1,newFine.length());
-          pstmt.setString(5,newFine.substring(0,newFine.length()));
-          pstmt.executeUpdate();
-//          rs.insertRow();
-//          rs.moveToCurrentRow();
+          rset.updateString(6,newFine.substring(0,newFine.length()));
+          rset.insertRow();
+          rset.moveToCurrentRow();
       }
       else {
           InputPerson inPers=new InputPerson();
@@ -55,17 +59,16 @@ public class JdbcMain {
           double sumFines = 0;
           String temp = "";
           while (rs.next()) {
-              // System.out.println(rs.getString(1)+"-----"+search);
-              if (stringToLowerCase(rs.getString(1)).equals(stringToLowerCase(search))
-                      || stringToLowerCase(rs.getString(2)).equals(stringToLowerCase(search))) {
+              if (stringToLowerCase(rs.getString(2)).equals(stringToLowerCase(search))
+                      || stringToLowerCase(rs.getString(3)).equals(stringToLowerCase(search))) {
                   counterFines++;
-                  sumFines += stringFineToDouble(rs.getString(5));
+                  sumFines += stringFineToDouble(rs.getString(6));
                   System.out.printf("%s(ID %s) has fine on %s(VIN %s) %s%n",
-                          rs.getString(2),
-                          rs.getString(1),
                           rs.getString(3),
+                          rs.getString(2),
                           rs.getString(4),
-                          rs.getString(5));
+                          rs.getString(5),
+                          rs.getString(6));
               }
           }
           if (counterFines == 0) {
