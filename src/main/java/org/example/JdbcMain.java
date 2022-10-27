@@ -7,13 +7,13 @@ public class JdbcMain {
 
     public static String stringToLowerCase(String st)
     {
-        String stRes="";
         char[] charArray=st.toCharArray();
         for (int i=0;i<st.length();i++)
         {
-            stRes+=Character.toLowerCase(charArray[i]);
+            charArray[i]=Character.toLowerCase(charArray[i]);
         }
-        return stRes;
+
+        return  String.valueOf(charArray);
     }
 
     public static Double stringFineToDouble(String st)
@@ -23,7 +23,7 @@ public class JdbcMain {
     }
 
     public static void main(String[] args) {
-   try(Connection connection = getConnection("jdbc:postgresql://localhost:5432/exed1", "postgres", "133154");
+   try(Connection connection = getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "133154");
    Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
            ResultSet.CONCUR_UPDATABLE)){
        ResultSet rs = statement.executeQuery("select * from car_fines");
@@ -32,29 +32,29 @@ public class JdbcMain {
       {
           InputNewFine inf=new InputNewFine();
           String newFine=inf.getString();
-          ResultSet rset = statement.executeQuery("select * from car_fines");
+          ResultSet resSet = statement.executeQuery("select * from car_fines");
           int a=0;
-          while(rset.next())
+          while(resSet.next())
           {
               a++;
           }
-          rset.moveToInsertRow();
-          rset.updateInt(1,a+1);
-          rset.updateString(2,newFine.substring(0,newFine.indexOf(",")));
+          resSet.moveToInsertRow();
+          resSet.updateInt(1,a+1);
+          resSet.updateString(2,newFine.substring(0,newFine.indexOf(",")));
           newFine=newFine.substring(newFine.indexOf(",")+1);
-          rset.updateString(3,newFine.substring(0,newFine.indexOf(",")));
+          resSet.updateString(3,newFine.substring(0,newFine.indexOf(",")));
           newFine=newFine.substring(newFine.indexOf(",")+1);
-          rset.updateString(4,newFine.substring(0,newFine.indexOf(",")));
+          resSet.updateString(4,newFine.substring(0,newFine.indexOf(",")));
           newFine=newFine.substring(newFine.indexOf(",")+1);
-          rset.updateString(5,newFine.substring(0,newFine.indexOf(",")));
+          resSet.updateString(5,newFine.substring(0,newFine.indexOf(",")));
           newFine=newFine.substring(newFine.indexOf(",")+1);
-          rset.updateString(6,newFine);
-          rset.insertRow();
-          rset.moveToCurrentRow();
+          resSet.updateString(6,newFine);
+          resSet.insertRow();
+          resSet.moveToCurrentRow();
       }
       else {
-          InputPerson inPers=new InputPerson();
-          String search = inPers.getString();
+          InputPerson inputPerson=new InputPerson();
+          String search = inputPerson.getString();
           int counterFines = 0;
           double sumFines = 0;
           while (rs.next()) {
