@@ -1,15 +1,14 @@
-package org.example;
+package org.example.input;
 
 import java.util.Scanner;
 
-public class InputNewFine implements Input{
+public class InputNewFine implements Input {
     private String inputedFine;
     @Override
     public void setString()
     {
         String temp;
-        InputType it=new InputType();
-            Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
             System.out.println("Write your password");
             String passport = sc.nextLine();
             if (passport.equals("admin")) {

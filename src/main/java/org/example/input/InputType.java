@@ -1,8 +1,8 @@
-package org.example;
+package org.example.input;
 
 import java.util.Scanner;
 
-public class InputType implements Input{
+public class InputType implements Input {
     private String inputType;
     @Override
     public void setString() {

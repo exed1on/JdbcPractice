@@ -1,4 +1,8 @@
 package org.example;
+import org.example.input.InputNewFine;
+import org.example.input.InputPerson;
+import org.example.input.InputType;
+
 import java.sql.*;
 
 import static java.sql.DriverManager.getConnection;
@@ -40,14 +44,11 @@ public class JdbcMain {
           }
           resSet.moveToInsertRow();
           resSet.updateInt(1,a+1);
-          resSet.updateString(2,newFine.substring(0,newFine.indexOf(",")));
-          newFine=newFine.substring(newFine.indexOf(",")+1);
-          resSet.updateString(3,newFine.substring(0,newFine.indexOf(",")));
-          newFine=newFine.substring(newFine.indexOf(",")+1);
-          resSet.updateString(4,newFine.substring(0,newFine.indexOf(",")));
-          newFine=newFine.substring(newFine.indexOf(",")+1);
-          resSet.updateString(5,newFine.substring(0,newFine.indexOf(",")));
-          newFine=newFine.substring(newFine.indexOf(",")+1);
+          for(int i=2;i<6;i++)
+          {
+              resSet.updateString(i,newFine.substring(0,newFine.indexOf(",")));
+              newFine=newFine.substring(newFine.indexOf(",")+1);
+          }
           resSet.updateString(6,newFine);
           resSet.insertRow();
           resSet.moveToCurrentRow();
